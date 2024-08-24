@@ -1,26 +1,19 @@
 import streamlit as st
+import re
+import csv
+import locale
+import os
 from datetime import datetime
 import pandas as pd
 import uuid
-import re
 from class_csv import CSVFile
 from google_sheets import GoogleSheet
-
-from google_auth_oauthlib.flow import Flow
-
 from generate_invoice_pdf import generate_pdf_from_last_csv_row
-import os
-
 from streamlit_elements import ElementsError
 from streamlit_option_menu import option_menu
-
-
-import locale
-
-
+from google_auth_oauthlib.flow import Flow
 
 page_title = 'Generador de facturas'
-
 page_icon= "💭"
 layout="wide"
 euro_symbol = '\u20AC'
@@ -80,7 +73,6 @@ def generate_uid():
     return unique_id_str
 
 def get_month_and_year():
-    locale.setlocale(locale.LC_TIME, 'es_ES')
     now = datetime.now()
     month = now.strftime("%B").lower()
     year = datetime.now().year
@@ -89,11 +81,8 @@ def get_month_and_year():
 if "first_time" not in st.session_state:
     st.session_state.first_time = ""
 
-
 if "items" not in st.session_state:
     st.session_state.items_invoice = []
-
-
 
 selected = option_menu(
     menu_title = None,
@@ -114,7 +103,6 @@ if selected=="Facturación":
             validation = validate_email(email)
             if validation == False:
                 st.warning("El E-mail no tiene un formato válido")
-
             else:
                 st.success("La factura generada sera enviada al destinatario")
         
@@ -141,15 +129,12 @@ if selected=="Facturación":
         if submitted_expense:
             if articulo == "":
                 st.warning("Añade una descripccion del articulo o servicio")
-            
             else:
                 st.success("Articulo añadido")
                 st.session_state.expense_data.append({"Articulo": articulo,"Cantidad": amount_expense, "Precio": precio, "Total": amount_expense*precio})
                 st.session_state.invoice_data.append({'name': articulo, 'quantity': amount_expense, 'unit_cost':precio})
 
-        
         if st.session_state.expense_data:
-
             df_expense = pd.DataFrame(st.session_state.expense_data)
             df_expense_invoice = pd.DataFrame(st.session_state.invoice_data)
             st.subheader("Articulos añadidos")
@@ -159,7 +144,6 @@ if selected=="Facturación":
             st.session_state.items_invoice = df_expense.to_dict('records')
             st.session_state.invoice_data = df_expense_invoice.to_dict('records')
             final_price = total_expenses
-    
 
     with st.container():
         cc3, cc4 = st.columns(2)
@@ -180,19 +164,18 @@ if selected=="Facturación":
     if submit:
         if not from_who or not to_who or not num_invoice or not date_invoice or not due_date:
             st.warning("Completa los campos obligatorios")
-        
         elif len(st.session_state.items_invoice)==0:
             st.warning("Añade algún artículo")
-        
         else:
             month,year = get_month_and_year()
             data= [str(from_who),str(to_who),str(logo),str(num_invoice), str(date_invoice),str(due_date),str(st.session_state.items_invoice),notes,term]
             try:
-                csv_file = CSVFile(csv)
-                csv_data = csv_file.read()
-                csv_data.append(data)
-                csv_file.write(csv_data)
-                st.success("Información enviada correctamente")
+                with open(csv, mode='r', encoding='latin-1') as file:
+                    csv_file = CSVFile(csv)
+                    csv_data = csv_file.read()
+                    csv_data.append(data)
+                    csv_file.write(csv_data)
+                    st.success("Información enviada correctamente")
 
                 # Generar PDF
                 pdf_filename = f"factura_{num_invoice}.pdf"
@@ -213,7 +196,3 @@ if selected=="Facturación":
                     st.warning("Tienes que cerrar el documento csv para poder actualizar la información desde la aplicación")
                 else:
                     st.error(f"Error: {str(e)}")
-            
-            except Exception as e:
-                if "permission denied" in str(e).lower():
-                    st.warning("Tienes que cerrar el socumento csv para poder actualizar la informacion desde la aplicacion")
