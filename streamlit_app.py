@@ -40,7 +40,6 @@ logo = "Einnova"
 file_authentication_gs= "invoice-tool-authentication.json"
 google_sheet= "invoice-tool"
 sheet_name= "invoices"
-url_logo = "https://i.ibb.co/12MHwBs/R.png"
 
 st.set_page_config(
     page_title='Ex-stream-ly- Cool App',
