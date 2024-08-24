@@ -7,7 +7,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 def generate_pdf_from_last_csv_row(csv_file, pdf_file):
     # Leer la última fila del CSV
     try:
-        with open(csv_file, 'r', encoding='utf-8') as file:
+        with open(csv_file, 'r', encoding='iso-8859-1') as file:
             csv_reader = list(csv.reader(file))
             last_row = csv_reader[-1]
     except UnicodeDecodeError:
