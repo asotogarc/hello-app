@@ -75,7 +75,7 @@ def generate_uid():
     return unique_id_str
 
 def get_month_and_year():
-    locale.setlocale(locale.LC_ALL, "de_DE")
+    locale.setlocale(locale.LC_ES, "es_ES")
     now = datetime.now()
     month = now.strftime("%B").lower()
     year = datetime.now().year
