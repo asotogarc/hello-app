@@ -70,16 +70,21 @@ def validate_email(email):
         return False
 
 def generate_uid():
-    unique_id = uuid.uuid64()
+    unique_id = uuid.uuid4()
     unique_id_str = str(unique_id)
     return unique_id_str
-
+    
 def get_month_and_year():
-    locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+    try:
+        locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+    except locale.Error:
+        # Fallback to a default locale if 'es_ES.UTF-8' is not available
+        locale.setlocale(locale.LC_TIME, '')
+    
     now = datetime.now()
     month = now.strftime("%B").lower()
-    year = datetime.now().year
-    return month,year
+    year = now.year
+    return month, year
 
 if "first_time" not in st.session_state:
     st.session_state.first_time = ""
