@@ -14,6 +14,7 @@ from streamlit_option_menu import option_menu
 from google_auth_oauthlib.flow import Flow
 
 
+
 page_title = 'Generador de facturas'
 
 page_icon= "💭"
@@ -35,6 +36,7 @@ logo = "Einnova"
 file_authentication_gs= "invoice-tool-authentication.json"
 google_sheet= "invoice-tool"
 sheet_name= "invoices"
+url_logo = "https://i.ibb.co/12MHwBs/R.png"
 
 st.set_page_config(
     page_title='Ex-stream-ly- Cool App',
@@ -74,25 +76,12 @@ def generate_uid():
     unique_id_str = str(unique_id)
     return unique_id_str
 
-import locale
-from datetime import datetime
-
 def get_month_and_year():
-    try:
-        # Try to set the Spanish locale
-        locale.setlocale(locale.LC_TIME, "es_ES.utf8")
-    except locale.Error:
-        try:
-            # If es_ES is not available, try a more generic Spanish locale
-            locale.setlocale(locale.LC_TIME, "es_ES")
-        except locale.Error:
-            # If Spanish is not available at all, fall back to the default locale
-            locale.setlocale(locale.LC_TIME, "")
-    
+    locale.setlocale(locale.LC_TIME, 'es_ES')
     now = datetime.now()
     month = now.strftime("%B").lower()
-    year = now.year
-    return month, year
+    year = datetime.now().year
+    return month,year
 
 if "first_time" not in st.session_state:
     st.session_state.first_time = ""
@@ -100,6 +89,7 @@ if "first_time" not in st.session_state:
 
 if "items" not in st.session_state:
     st.session_state.items_invoice = []
+
 
 
 selected = option_menu(
@@ -113,6 +103,7 @@ if selected=="Facturación":
 
     with st.container():
         cc1,cc2 = st.columns(2)
+        cc1.image("assets/R.PNG", caption="Einnova", width=100)
         from_who = cc1.text_input("De: *",placeholder="Quien envía esta factura")
         to_who = cc1.text_input("Cobrar a: *", placeholder="Para quien es la factura")
         email = cc1.text_input("Enviar a: ", placeholder="Enviar correo (opcional)")
@@ -203,7 +194,7 @@ if selected=="Facturación":
 
                 # Generar PDF
                 pdf_filename = f"factura_{num_invoice}.pdf"
-                pdf_path = os.path.join("Portfolio/invoices", pdf_filename)
+                pdf_path = os.path.join("invoices", pdf_filename)
                 generated_pdf = generate_pdf_from_last_csv_row(csv, pdf_path)
 
                 # Ofrecer el PDF para descarga
