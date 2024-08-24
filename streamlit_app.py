@@ -35,6 +35,7 @@ logo = "Einnova"
 file_authentication_gs= "invoice-tool-authentication.json"
 google_sheet= "invoice-tool"
 sheet_name= "invoices"
+url_logo = "https://i.ibb.co/12MHwBs/R.png"
 
 st.set_page_config(
     page_title='Ex-stream-ly- Cool App',
@@ -59,16 +60,8 @@ hide_st_style = """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
 def local_css(file_name):
-    try:
-        with open(file_name, 'r', encoding='utf-8') as f:
-            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-    except UnicodeDecodeError:
-        # If UTF-8 fails, try reading with ISO-8859-1 encoding
-        try:
-            with open(file_name, 'r', encoding='iso-8859-1') as f:
-                st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-        except Exception as e:
-            st.error(f"Failed to read CSS file: {str(e)}")
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 def validate_email(email):
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
@@ -78,21 +71,16 @@ def validate_email(email):
         return False
 
 def generate_uid():
-    unique_id = uuid.uuid4()
+    unique_id = uuid.uuid64()
     unique_id_str = str(unique_id)
     return unique_id_str
-    
+
 def get_month_and_year():
-    try:
-        locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
-    except locale.Error:
-        # Fallback to a default locale if 'es_ES.UTF-8' is not available
-        locale.setlocale(locale.LC_TIME, '')
-    
+    locale.setlocale(locale.LC_TIME, 'es_ES')
     now = datetime.now()
     month = now.strftime("%B").lower()
-    year = now.year
-    return month, year
+    year = datetime.now().year
+    return month,year
 
 if "first_time" not in st.session_state:
     st.session_state.first_time = ""
@@ -114,6 +102,7 @@ if selected=="Facturación":
 
     with st.container():
         cc1,cc2 = st.columns(2)
+        cc1.image("assets/R.PNG", caption="Einnova", width=100)
         from_who = cc1.text_input("De: *",placeholder="Quien envía esta factura")
         to_who = cc1.text_input("Cobrar a: *", placeholder="Para quien es la factura")
         email = cc1.text_input("Enviar a: ", placeholder="Enviar correo (opcional)")
@@ -204,7 +193,7 @@ if selected=="Facturación":
 
                 # Generar PDF
                 pdf_filename = f"factura_{num_invoice}.pdf"
-                pdf_path = os.path.join("Portfolio/invoices", pdf_filename)
+                pdf_path = os.path.join("invoices", pdf_filename)
                 generated_pdf = generate_pdf_from_last_csv_row(csv, pdf_path)
 
                 # Ofrecer el PDF para descarga
