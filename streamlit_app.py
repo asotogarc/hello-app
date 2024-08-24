@@ -191,7 +191,7 @@ if selected=="Facturación":
 
                 # Generar PDF
                 pdf_filename = f"factura_{num_invoice}.pdf"
-                pdf_path = os.path.join("invoices", pdf_filename)
+                pdf_path = os.path.join("Portfolio/invoices", pdf_filename)
                 generated_pdf = generate_pdf_from_last_csv_row(csv, pdf_path)
 
                 # Ofrecer el PDF para descarga
