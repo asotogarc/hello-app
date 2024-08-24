@@ -100,7 +100,26 @@ if "first_time" not in st.session_state:
 
 if "items" not in st.session_state:
     st.session_state.items_invoice = []
+import csv
+import codecs
 
+def read_csv_file(file_path):
+    try:
+        # First, try reading the file as UTF-8
+        with open(file_path, 'r', encoding='utf-8') as file:
+            reader = csv.reader(file)
+            data = list(reader)
+    except UnicodeDecodeError:
+        # If UTF-8 fails, try reading as ISO-8859-1 (Latin-1)
+        with open(file_path, 'r', encoding='iso-8859-1') as file:
+            reader = csv.reader(file)
+            data = list(reader)
+    
+    return data
+
+# Usage
+csv_file_path = 'your_file_path.csv'
+csv_data = read_csv_file(csv_file_path)
 
 
 selected = option_menu(
