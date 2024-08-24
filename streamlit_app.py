@@ -1,12 +1,5 @@
 import streamlit as st
-from datetime import datetime
-import pandas as pd
-import uuid
-import re
-import os
-from streamlit_elements import ElementsError
-from streamlit_option_menu import option_menu
-import locale
+
 
 
 # Agregar CSS para cambiar el color de fondo, el color del texto y ocultar la cabecera
