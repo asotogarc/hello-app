@@ -1,6 +1,6 @@
 import streamlit as st
 
-# Agregar CSS para cambiar el color de fondo y el color del texto
+# Agregar CSS para cambiar el color de fondo, el color del texto y ocultar la cabecera
 st.markdown(
     """
     <style>
@@ -9,6 +9,9 @@ st.markdown(
     }
     .black-text {
         color: black; /* Cambia el color del texto a negro */
+    }
+    header {
+        display: none; /* Oculta la cabecera */
     }
     </style>
     """,
