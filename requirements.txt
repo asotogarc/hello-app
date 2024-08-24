@@ -3,5 +3,4 @@ pandas
 uuid
 re
 os
-streamlit-option-menu
 locale
