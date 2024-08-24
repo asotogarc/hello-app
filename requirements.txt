@@ -4,3 +4,7 @@ uuid
 datetime
 gspread
 reportlab
+reportlab
+google-auth-oauthlib
+streamlit-elements
+streamlit-option-menu
