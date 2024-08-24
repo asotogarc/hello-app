@@ -6,9 +6,16 @@ from reportlab.lib.styles import getSampleStyleSheet
 
 def generate_pdf_from_last_csv_row(csv_file, pdf_file):
     # Leer la última fila del CSV
-    with open(csv_file, 'r') as file:
-        csv_reader = list(csv.reader(file))
-        last_row = csv_reader[-1]
+    try:
+        with open(csv_file, 'r', encoding='utf-8') as file:
+            csv_reader = list(csv.reader(file))
+            last_row = csv_reader[-1]
+    except UnicodeDecodeError:
+        with open(csv_file, 'r', encoding='iso-8859-1') as file:
+            csv_reader = list(csv.reader(file))
+            last_row = csv_reader[-1]
+    
+    # ... resto de la función ...
 
     # Extraer datos
     from_who, to_who, logo, num_invoice, date_invoice, due_date, items, notes, term = last_row
