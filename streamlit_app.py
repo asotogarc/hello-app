@@ -35,7 +35,6 @@ logo = "Einnova"
 file_authentication_gs= "invoice-tool-authentication.json"
 google_sheet= "invoice-tool"
 sheet_name= "invoices"
-url_logo = "https://i.ibb.co/12MHwBs/R.png"
 
 st.set_page_config(
     page_title='Ex-stream-ly- Cool App',
@@ -102,7 +101,6 @@ if selected=="Facturación":
 
     with st.container():
         cc1,cc2 = st.columns(2)
-        cc1.image("assets/R.PNG", caption="Einnova", width=100)
         from_who = cc1.text_input("De: *",placeholder="Quien envía esta factura")
         to_who = cc1.text_input("Cobrar a: *", placeholder="Para quien es la factura")
         email = cc1.text_input("Enviar a: ", placeholder="Enviar correo (opcional)")
