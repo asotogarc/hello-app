@@ -1,9 +1,3 @@
-¡Claro! Aquí tienes el código modificado para que se requiera un usuario y contraseña para usar la aplicación. He generado un usuario y contraseña de ejemplo para ti:
-
-- **Usuario:** admin
-- **Contraseña:** password123
-
-```python
 import streamlit as st
 from datetime import datetime
 import pandas as pd
