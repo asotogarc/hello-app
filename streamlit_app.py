@@ -74,12 +74,25 @@ def generate_uid():
     unique_id_str = str(unique_id)
     return unique_id_str
 
+import locale
+from datetime import datetime
+
 def get_month_and_year():
-    locale.setlocale(locale.LC_ES, "es_ES")
+    try:
+        # Try to set the Spanish locale
+        locale.setlocale(locale.LC_TIME, "es_ES.utf8")
+    except locale.Error:
+        try:
+            # If es_ES is not available, try a more generic Spanish locale
+            locale.setlocale(locale.LC_TIME, "es_ES")
+        except locale.Error:
+            # If Spanish is not available at all, fall back to the default locale
+            locale.setlocale(locale.LC_TIME, "")
+    
     now = datetime.now()
     month = now.strftime("%B").lower()
-    year = datetime.now().year
-    return month,year
+    year = now.year
+    return month, year
 
 if "first_time" not in st.session_state:
     st.session_state.first_time = ""
