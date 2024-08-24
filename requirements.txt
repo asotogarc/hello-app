@@ -1,0 +1,8 @@
+streamlit
+pandas
+uuid
+re
+os
+streamlit-elements
+streamlit-option-menu
+locale
