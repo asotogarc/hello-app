@@ -59,8 +59,16 @@ hide_st_style = """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
 def local_css(file_name):
-    with open(file_name) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    try:
+        with open(file_name, 'r', encoding='utf-8') as f:
+            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    except UnicodeDecodeError:
+        # If UTF-8 fails, try reading with ISO-8859-1 encoding
+        try:
+            with open(file_name, 'r', encoding='iso-8859-1') as f:
+                st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+        except Exception as e:
+            st.error(f"Failed to read CSS file: {str(e)}")
 
 def validate_email(email):
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
