@@ -1,7 +1,7 @@
 import streamlit as st
 import re
 import csv
-import locales
+import locale
 import os
 
 # Agregar CSS para cambiar el color de fondo, el color del texto y ocultar la cabecera
