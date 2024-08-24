@@ -5,12 +5,12 @@ class CSVFile:
         self.file_path = file_path
 
     def read(self):
-        with open(self.file_path, 'r') as file:
+        with open(self.file_path, 'r', encoding='utf-8') as file:
             reader = csv.reader(file)
-            data = list(reader)   
+            data = list(reader)
         return data
 
     def write(self, data):
-        with open(self.file_path, 'w', newline='') as file:
+        with open(self.file_path, 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
             writer.writerows(data)
