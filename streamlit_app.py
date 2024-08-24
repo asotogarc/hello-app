@@ -170,11 +170,12 @@ if selected=="Facturación":
             month,year = get_month_and_year()
             data= [str(from_who),str(to_who),str(logo),str(num_invoice), str(date_invoice),str(due_date),str(st.session_state.items_invoice),notes,term]
             try:
-                csv_file = CSVFile(csv)
-                csv_data = csv_file.read()
-                csv_data.append(data)
-                csv_file.write(csv_data)
-                st.success("Información enviada correctamente")
+                with open(csv, mode='r', encoding='latin-1') as file:
+                    csv_file = CSVFile(csv)
+                    csv_data = csv_file.read()
+                    csv_data.append(data)
+                    csv_file.write(csv_data)
+                    st.success("Información enviada correctamente")
 
                 # Generar PDF
                 pdf_filename = f"factura_{num_invoice}.pdf"
