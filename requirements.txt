@@ -8,3 +8,4 @@ reportlab
 google-auth-oauthlib
 streamlit-elements
 streamlit-option-menu
+locale
