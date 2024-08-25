@@ -74,7 +74,7 @@ def generate_uid():
 
 # Función para autenticar al usuario
 def authenticate(username, password):
-    return username == "usuario1" and password == "contraseña1"
+    return username == "einnova_python_development" and password == "scripts_python-ID274"
 
 # Solicitar autenticación al usuario
 username = st.text_input("Usuario")
