@@ -69,8 +69,8 @@ def generate_pdf_from_last_csv_row(csv_file, pdf_file):
     elements.append(table)
 
     # Resumen financiero
-    tax_rate = tax_rate  # Asume un 21% de IVA, ajusta según sea necesario
-    discount_rate = discount_rate  # Asume un 5% de descuento, ajusta según sea necesario
+    tax_rate = 0.21  # Asume un 21% de IVA, ajusta según sea necesario
+    discount_rate = 0.05  # Asume un 5% de descuento, ajusta según sea necesario
     tax = subtotal * tax_rate
     discount = subtotal * discount_rate
     total = subtotal + tax - discount
