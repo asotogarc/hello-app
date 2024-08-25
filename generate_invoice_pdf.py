@@ -4,7 +4,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
 
-def generate_pdf_from_last_csv_row(csv_file, pdf_file):
+def generate_pdf_from_last_csv_row(csv_file, pdf_file, discount_rate, tax_rate):
     # Leer la última fila del CSV
     try:
         with open(csv_file, 'r', encoding='iso-8859-1') as file:
@@ -15,12 +15,10 @@ def generate_pdf_from_last_csv_row(csv_file, pdf_file):
             csv_reader = list(csv.reader(file))
             last_row = csv_reader[-1]
     
-    # ... resto de la función ...
-
     # Extraer datos
     from_who, to_who, logo, num_invoice, date_invoice, due_date, items, notes, term = last_row
 
-     # Crear PDF
+    # Crear PDF
     doc = SimpleDocTemplate(pdf_file, pagesize=letter, topMargin=30, bottomMargin=30)
     elements = []
 
@@ -36,8 +34,6 @@ def generate_pdf_from_last_csv_row(csv_file, pdf_file):
     elements.append(Paragraph(f"Para: {to_who}", normal_style))
     elements.append(Paragraph(f"Fecha: {date_invoice}", normal_style))
     elements.append(Paragraph(f"Fecha de vencimiento: {due_date}", normal_style))
-
-    # Condiciones de pago
 
     # Tabla de items
     items_data = eval(items)
@@ -69,16 +65,14 @@ def generate_pdf_from_last_csv_row(csv_file, pdf_file):
     elements.append(table)
 
     # Resumen financiero
-    tax_rate = 0.21  # Asume un 21% de IVA, ajusta según sea necesario
-    discount_rate = 0.05  # Asume un 5% de descuento, ajusta según sea necesario
     tax = subtotal * tax_rate
     discount = subtotal * discount_rate
     total = subtotal + tax - discount
 
     financial_data = [
         ['Subtotal', f"€{subtotal:.2f}"],
-        ['Impuesto (21%)', f"€{tax:.2f}"],
-        ['Descuento (50%)', f"€{discount:.2f}"],
+        ['Impuesto', f"€{tax:.2f}"],
+        ['Descuento', f"€{discount:.2f}"],
         ['Total', f"€{total:.2f}"]
     ]
 
@@ -96,11 +90,9 @@ def generate_pdf_from_last_csv_row(csv_file, pdf_file):
     elements.append(Paragraph("Notas:", subtitle_style))
     elements.append(Paragraph(notes, normal_style))
 
-
     elements.append(Paragraph("Términos:", subtitle_style))
     elements.append(Paragraph(term, normal_style))
 
-    
     # Generar PDF
     doc.build(elements)
 
