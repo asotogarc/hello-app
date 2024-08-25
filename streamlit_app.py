@@ -74,7 +74,14 @@ def generate_uid():
 
 # Función para autenticar al usuario
 def authenticate(username, password):
-    return username == "admin" and password == "password"
+    return username == "usuario1" and password == "contraseña1"
+
+# Solicitar autenticación al usuario
+username = st.text_input("Usuario")
+password = st.text_input("Contraseña", type="password")
+if not authenticate(username, password):
+    st.error("Usuario o contraseña incorrectos")
+    st.stop()
 
 def get_month_and_year():
     now = datetime.now()
