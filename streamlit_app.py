@@ -95,7 +95,6 @@ selected = option_menu(
     orientation='horizontal'
 )
 
-authenticate()
 
 if selected=="Facturación":
 
