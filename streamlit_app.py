@@ -72,6 +72,10 @@ def generate_uid():
     unique_id_str = str(unique_id)
     return unique_id_str
 
+# Función para autenticar al usuario
+def authenticate(username, password):
+    return username == "admin" and password == "password"
+
 def get_month_and_year():
     now = datetime.now()
     month = now.strftime("%B").lower()
@@ -90,6 +94,8 @@ selected = option_menu(
     icons=['receipt', 'bar-chart-fill'],
     orientation='horizontal'
 )
+
+authenticate()
 
 if selected=="Facturación":
 
