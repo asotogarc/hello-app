@@ -180,7 +180,7 @@ if selected=="Facturación":
             st.warning("Añade algún artículo")
         else:
             month,year = get_month_and_year()
-            data= [str(from_who),str(to_who),str(logo),str(num_invoice), str(date_invoice),str(due_date),str(st.session_state.items_invoice),notes,term,tax_rate,discount_rate]
+            data= [str(from_who),str(to_who),str(logo),str(num_invoice), str(date_invoice),str(due_date),str(st.session_state.items_invoice),notes,term]
             try:
                 with open(csv, mode='r', encoding='latin-1') as file:
                     csv_file = CSVFile(csv)
