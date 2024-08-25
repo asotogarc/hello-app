@@ -18,7 +18,7 @@ def generate_pdf_from_last_csv_row(csv_file, pdf_file):
     # ... resto de la función ...
 
     # Extraer datos
-    from_who, to_who, logo, num_invoice, date_invoice, due_date, items, notes, term, tax_rate,discount_rate = last_row
+    from_who, to_who, logo, num_invoice, date_invoice, due_date, items, notes, term = last_row
 
      # Crear PDF
     doc = SimpleDocTemplate(pdf_file, pagesize=letter, topMargin=30, bottomMargin=30)
