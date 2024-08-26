@@ -124,6 +124,10 @@ if selected=="FACTURACIÓN":
         from_who = cc1.text_input("De: *",placeholder="Quien envía esta factura")
         to_who = cc1.text_input("Cobrar a: *", placeholder="Para quien es la factura")
         email = cc1.text_input("Enviar a: ", placeholder="Enviar correo (opcional)")
+        num_invoice = cc2.text_input("#", placeholder='Numero de factura')
+        date_invoice = cc2.date_input("Fecha *")
+        due_date = cc2.date_input("Fecha de vencimiento")
+
 
         if email:
             validation = validate_email(email)
