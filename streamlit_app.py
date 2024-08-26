@@ -132,7 +132,7 @@ if selected=="FACTURACIÓN":
             else:
                 st.success("La factura generada sera enviada al destinatario")
         
-        cc2.subheader("FACTURA")
+        cc2.header("FACTURA")
 
         num_invoice = cc2.text_input("#", placeholder='Numero de factura')
         date_invoice = cc2.date_input("Fecha *")
