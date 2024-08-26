@@ -179,7 +179,7 @@ if selected=="FACTURACIÓN":
             with col2:
                 st.write(f"{item['Cantidad']} unidade/s")
             with col3:
-                st.write(item['Precio'])
+                st.write(f"{item['Precio'] €")
            
             with col5:
                 if st.button('Eliminar', key=f'del_{idx}'):
