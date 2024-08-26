@@ -72,11 +72,9 @@ def generate_uid():
     unique_id_str = str(unique_id)
     return unique_id_str
 
-# Función para autenticar al usuario
 def authenticate(username, password):
     return username == "einnova_python_development" and password == "scripts_python-ID274"
 
-# Solicitar autenticación al usuario
 username = st.text_input("Usuario")
 password = st.text_input("Contraseña", type="password")
 if not authenticate(username, password):
@@ -102,10 +100,26 @@ selected = option_menu(
     orientation='horizontal'
 )
 
-
 if selected=="Facturación":
+    st.markdown("""
+    <style>
+    .big-font {
+        font-size:20px !important;
+        font-weight: bold;
+    }
+    .input-container {
+        background-color: #f0f2f6;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
+    st.markdown('<p class="big-font">Información de la factura</p>', unsafe_allow_html=True)
+    
     with st.container():
+        st.markdown('<div class="input-container">', unsafe_allow_html=True)
         cc1,cc2 = st.columns(2)
         from_who = cc1.text_input("De: *",placeholder="Quien envía esta factura")
         to_who = cc1.text_input("Cobrar a: *", placeholder="Para quien es la factura")
@@ -123,8 +137,12 @@ if selected=="Facturación":
         num_invoice = cc2.text_input("#", placeholder='Numero de factura')
         date_invoice = cc2.date_input("Fecha *")
         due_date = cc2.date_input("Fecha de vencimiento")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    st.markdown('<p class="big-font">Detalles de los artículos</p>', unsafe_allow_html=True)
     
     with st.form("entry_form", clear_on_submit=True):
+        st.markdown('<div class="input-container">', unsafe_allow_html=True)
         if 'expense_data' not in st.session_state:
             st.session_state.expense_data = []
         if "invoice_data" not in st.session_state:
@@ -156,8 +174,12 @@ if selected=="Facturación":
             st.session_state.items_invoice = df_expense.to_dict('records')
             st.session_state.invoice_data = df_expense_invoice.to_dict('records')
             final_price = total_expenses
+        st.markdown('</div>', unsafe_allow_html=True)
 
+    st.markdown('<p class="big-font">Información adicional</p>', unsafe_allow_html=True)
+    
     with st.container():
+        st.markdown('<div class="input-container">', unsafe_allow_html=True)
         cc3, cc4 = st.columns(2)
         notes = cc3.text_area("Notas")
         term = cc4.text_area("Terminos")
@@ -170,6 +192,7 @@ if selected=="Facturación":
         if descuento:
             final_price = final_price - ((descuento/100)*final_price)
         cc3.write("Total: " + str(final_price) + " " + euro_symbol)
+        st.markdown('</div>', unsafe_allow_html=True)
     
     submit = st.button("Enviar")
 
@@ -182,7 +205,6 @@ if selected=="Facturación":
             month,year = get_month_and_year()
             data = [str(from_who), str(to_who), str(logo), str(num_invoice), str(date_invoice), str(due_date), str(st.session_state.items_invoice), notes, term, str(impuesto/100), str(descuento/100)]
 
-
             try:
                 with open(csv, mode='r', encoding='latin-1') as file:
                     csv_file = CSVFile(csv)
@@ -191,12 +213,10 @@ if selected=="Facturación":
                     csv_file.write(csv_data)
                     st.success("Información enviada correctamente")
 
-                # Generar PDF
                 pdf_filename = f"factura_{num_invoice}.pdf"
                 pdf_path = os.path.join("invoices", pdf_filename)
                 generated_pdf = generate_pdf_from_last_csv_row(csv, pdf_path)
 
-                # Ofrecer el PDF para descarga
                 with open(generated_pdf, "rb") as pdf_file:
                     st.download_button(
                         label="Descargar Factura PDF",
