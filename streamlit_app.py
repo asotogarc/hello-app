@@ -142,7 +142,6 @@ if selected=="Facturación":
     st.markdown('<p class="big-font">Detalles de los artículos</p>', unsafe_allow_html=True)
     
     with st.form("entry_form", clear_on_submit=True):
-        st.markdown('<div class="input-container">', unsafe_allow_html=True)
         if 'expense_data' not in st.session_state:
             st.session_state.expense_data = []
         if "invoice_data" not in st.session_state:
