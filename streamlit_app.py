@@ -164,34 +164,31 @@ if selected=="Facturación":
                 st.session_state.expense_data.append({"Articulo": articulo,"Cantidad": amount_expense, "Precio": precio, "Total": amount_expense*precio})
                 st.session_state.invoice_data.append({'name': articulo, 'quantity': amount_expense, 'unit_cost':precio})
 
-        if st.session_state.expense_data:
-            df_expense = pd.DataFrame(st.session_state.expense_data)
-            df_expense_invoice = pd.DataFrame(st.session_state.invoice_data)
-            st.subheader("Articulos añadidos")
-            
-            # Agregar botones de eliminación para cada fila
-            for idx, row in df_expense.iterrows():
-                col1, col2, col3, col4, col5 = st.columns([3, 2, 2, 2, 1])
-                with col1:
-                    st.write(row['Articulo'])
-                with col2:
-                    st.write(row['Cantidad'])
-                with col3:
-                    st.write(row['Precio'])
-                with col4:
-                    st.write(row['Total'])
-                with col5:
-                    if st.button('Eliminar', key=f'del_{idx}'):
-                        st.session_state.expense_data.pop(idx)
-                        st.session_state.invoice_data.pop(idx)
-                        st.experimental_rerun()
-            
-            total_expenses = sum([item['Total'] for item in st.session_state.expense_data])
-            st.text(f"Total:{total_expenses}"+" "+euro_symbol)
-            st.session_state.items_invoice = st.session_state.expense_data
-            st.session_state.invoice_data = st.session_state.invoice_data
-            final_price = total_expenses
         st.markdown('</div>', unsafe_allow_html=True)
+
+    if st.session_state.expense_data:
+        st.subheader("Articulos añadidos")
+        
+        for idx, item in enumerate(st.session_state.expense_data):
+            col1, col2, col3, col4, col5 = st.columns([3, 2, 2, 2, 1])
+            with col1:
+                st.write(item['Articulo'])
+            with col2:
+                st.write(item['Cantidad'])
+            with col3:
+                st.write(item['Precio'])
+            with col4:
+                st.write(item['Total'])
+            with col5:
+                if st.button('Eliminar', key=f'del_{idx}'):
+                    st.session_state.expense_data.pop(idx)
+                    st.session_state.invoice_data.pop(idx)
+                    st.experimental_rerun()
+        
+        total_expenses = sum([item['Total'] for item in st.session_state.expense_data])
+        st.text(f"Total:{total_expenses}"+" "+euro_symbol)
+        st.session_state.items_invoice = st.session_state.expense_data
+        final_price = total_expenses
 
     st.markdown('<p class="big-font">Información adicional</p>', unsafe_allow_html=True)
     
