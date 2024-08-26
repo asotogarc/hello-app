@@ -68,7 +68,7 @@ def validate_email(email):
         return False
 
 def generate_uid():
-    unique_id = uuid.uuid64()
+    unique_id = uuid.uuid4()
     unique_id_str = str(unique_id)
     return unique_id_str
 
@@ -168,11 +168,28 @@ if selected=="Facturación":
             df_expense = pd.DataFrame(st.session_state.expense_data)
             df_expense_invoice = pd.DataFrame(st.session_state.invoice_data)
             st.subheader("Articulos añadidos")
-            st.table(df_expense)
-            total_expenses = df_expense['Total'].sum()
+            
+            # Agregar botones de eliminación para cada fila
+            for idx, row in df_expense.iterrows():
+                col1, col2, col3, col4, col5 = st.columns([3, 2, 2, 2, 1])
+                with col1:
+                    st.write(row['Articulo'])
+                with col2:
+                    st.write(row['Cantidad'])
+                with col3:
+                    st.write(row['Precio'])
+                with col4:
+                    st.write(row['Total'])
+                with col5:
+                    if st.button('Eliminar', key=f'del_{idx}'):
+                        st.session_state.expense_data.pop(idx)
+                        st.session_state.invoice_data.pop(idx)
+                        st.experimental_rerun()
+            
+            total_expenses = sum([item['Total'] for item in st.session_state.expense_data])
             st.text(f"Total:{total_expenses}"+" "+euro_symbol)
-            st.session_state.items_invoice = df_expense.to_dict('records')
-            st.session_state.invoice_data = df_expense_invoice.to_dict('records')
+            st.session_state.items_invoice = st.session_state.expense_data
+            st.session_state.invoice_data = st.session_state.invoice_data
             final_price = total_expenses
         st.markdown('</div>', unsafe_allow_html=True)
 
