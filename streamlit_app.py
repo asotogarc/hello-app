@@ -168,7 +168,12 @@ if selected=="Facturación":
             df_expense = pd.DataFrame(st.session_state.expense_data)
             df_expense_invoice = pd.DataFrame(st.session_state.invoice_data)
             st.subheader("Articulos añadidos")
-            st.table(df_expense)
+            for i, row in df_expense.iterrows():
+                st.write(f"{row['Articulo']} - {row['Cantidad']} - {row['Precio']} - {row['Total']}")
+                if st.button(f"Eliminar {row['Articulo']}", key=f"delete_{i}"):
+                    st.session_state.expense_data.pop(i)
+                    st.session_state.invoice_data.pop(i)
+                    st.experimental_rerun()
             total_expenses = df_expense['Total'].sum()
             st.text(f"Total:{total_expenses}"+" "+euro_symbol)
             st.session_state.items_invoice = df_expense.to_dict('records')
@@ -216,17 +221,3 @@ if selected=="Facturación":
                 pdf_filename = f"factura_{num_invoice}.pdf"
                 pdf_path = os.path.join("invoices", pdf_filename)
                 generated_pdf = generate_pdf_from_last_csv_row(csv, pdf_path)
-
-                with open(generated_pdf, "rb") as pdf_file:
-                    st.download_button(
-                        label="Descargar Factura PDF",
-                        data=pdf_file,
-                        file_name=pdf_filename,
-                        mime="application/pdf"
-                    )
-            
-            except Exception as e:
-                if "permission denied" in str(e).lower():
-                    st.warning("Tienes que cerrar el documento csv para poder actualizar la información desde la aplicación")
-                else:
-                    st.error(f"Error: {str(e)}")
