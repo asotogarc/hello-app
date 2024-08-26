@@ -116,7 +116,7 @@ if selected=="FACTURACIÓN":
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown('<p class="big-font">Información de la factura</p>', unsafe_allow_html=True)
+    st.markdown('<p class="big-font">INFORMACIÓN</p>', unsafe_allow_html=True)
     
     with st.container():
         
