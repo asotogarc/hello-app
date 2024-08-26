@@ -193,7 +193,7 @@ if selected=="FACTURACIÓN":
         st.session_state.items_invoice = st.session_state.expense_data
         final_price = total_expenses
 
-    st.markdown('<p class="big-font">Información adicional</p>', unsafe_allow_html=True)
+    st.markdown('<p class="big-font">INFORMACIÓN ADICIONAL</p>', unsafe_allow_html=True)
     
     with st.container():
         st.markdown('<div class="input-container">', unsafe_allow_html=True)
