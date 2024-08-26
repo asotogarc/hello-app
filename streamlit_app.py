@@ -183,7 +183,7 @@ if selected=="Facturación":
                 if st.button('Eliminar', key=f'del_{idx}'):
                     st.session_state.expense_data.pop(idx)
                     st.session_state.invoice_data.pop(idx)
-                    st.experimental_rerun()
+                    st.rerun()  # Cambiado de st.experimental_rerun() a st.rerun()
         
         total_expenses = sum([item['Total'] for item in st.session_state.expense_data])
         st.text(f"Total:{total_expenses}"+" "+euro_symbol)
