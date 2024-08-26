@@ -121,7 +121,7 @@ if selected=="FACTURACIÓN":
     with st.container():
         
         cc1,cc2 = st.columns(2)
-        from_who = cc1.text_input("De: *",placeholder="Quien envía esta factura")
+        from_who = cc1.text_input("D: *",placeholder="Quien envía esta factura")
         to_who = cc1.text_input("Cobrar a: *", placeholder="Para quien es la factura")
         email = cc1.text_input("Enviar a: ", placeholder="Enviar correo (opcional)")
         num_invoice = cc2.text_input("#", placeholder='Numero de factura')
