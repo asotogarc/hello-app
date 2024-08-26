@@ -180,8 +180,7 @@ if selected=="FACTURACIÓN":
                 st.write(item['Cantidad'])
             with col3:
                 st.write(item['Precio'])
-            with col4:
-                st.write(item['Total'])
+           
             with col5:
                 if st.button('Eliminar', key=f'del_{idx}'):
                     st.session_state.expense_data.pop(idx)
