@@ -98,12 +98,11 @@ if not st.session_state.authenticated:
         if authenticate(username, password):
             st.session_state.authenticated = True
             st.success("Login exitoso!")
-            st.experimental_rerun()
+            st.rerun()
         else:
             st.error("Usuario o contraseña incorrectos")
     st.stop()
 
-# El resto del código permanece igual
 selected = option_menu(
     menu_title = None,
     options = ["AUTO-FACTURACIÓN"],
