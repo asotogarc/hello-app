@@ -170,7 +170,7 @@ if selected=="FACTURACIÓN":
         st.markdown('</div>', unsafe_allow_html=True)
 
     if st.session_state.expense_data:
-        st.subheader("Articulos añadidos")
+        st.subheader("PRODUCTOS AÑADIDOS")
         
         for idx, item in enumerate(st.session_state.expense_data):
             col1, col2, col3, col4, col5 = st.columns([3, 2, 2, 2, 1])
