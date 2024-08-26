@@ -136,12 +136,12 @@ if selected=="FACTURACIÓN":
             else:
                 st.success("La factura generada sera enviada al destinatario")
         
-        cc2.header("FACTURA")
+        #cc2.header("FACTURA")
 
-        num_invoice = cc2.text_input("#", placeholder='Numero de factura')
-        date_invoice = cc2.date_input("Fecha *")
-        due_date = cc2.date_input("Fecha de vencimiento")
-        st.markdown('</div>', unsafe_allow_html=True)
+        #num_invoice = cc2.text_input("#", placeholder='Numero de factura')
+        #date_invoice = cc2.date_input("Fecha *")
+        #due_date = cc2.date_input("Fecha de vencimiento")
+        #st.markdown('</div>', unsafe_allow_html=True)
     
     st.markdown('<p class="big-font">Detalles de los artículos</p>', unsafe_allow_html=True)
     
