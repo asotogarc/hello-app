@@ -143,7 +143,7 @@ if selected=="FACTURACIÓN":
         #due_date = cc2.date_input("Fecha de vencimiento")
         #st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('<p class="big-font">Detalles de los artículos</p>', unsafe_allow_html=True)
+    st.markdown('<p class="big-font">PRODUCTOS</p>', unsafe_allow_html=True)
     
     with st.form("entry_form", clear_on_submit=True):
         if 'expense_data' not in st.session_state:
