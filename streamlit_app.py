@@ -119,7 +119,7 @@ if selected=="Facturación":
     st.markdown('<p class="big-font">Información de la factura</p>', unsafe_allow_html=True)
     
     with st.container():
-        st.markdown('<div class="input-container">', unsafe_allow_html=True)
+        
         cc1,cc2 = st.columns(2)
         from_who = cc1.text_input("De: *",placeholder="Quien envía esta factura")
         to_who = cc1.text_input("Cobrar a: *", placeholder="Para quien es la factura")
