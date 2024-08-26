@@ -134,7 +134,7 @@ if selected=="FACTURACIÓN":
             if validation == False:
                 st.warning("El E-mail no tiene un formato válido")
             else:
-                st.success("La factura generada sera enviada al destinatario")
+                st.success("Correo registrado")
         
         #cc2.header("FACTURA")
 
