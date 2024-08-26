@@ -95,7 +95,7 @@ if "items" not in st.session_state:
 
 selected = option_menu(
     menu_title = None,
-    options = ["Facturación"],
+    options = ["FACTURACIÓN"],
     icons=['receipt', 'bar-chart-fill'],
     orientation='horizontal'
 )
