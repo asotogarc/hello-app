@@ -154,7 +154,7 @@ if selected=="FACTURACIÓN":
             st.session_state.files = []
         
         cex1, cex2, cex3 = st.columns(3)
-        articulo = cex1.text_input("Articulo",placeholder="Introduzca el nombre del producto y su descripción")
+        articulo = cex1.text_input("Articulo",placeholder="Introduzca el nombre del producto")
         amount_expense = cex2.number_input("Unidades", step=1, min_value=1)
         precio = cex3.number_input("Precio (€)", min_value=0)
         submitted_expense = st.form_submit_button('Añadir artículo')
