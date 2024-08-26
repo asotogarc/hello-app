@@ -177,7 +177,7 @@ if selected=="FACTURACIÓN":
             with col1:
                 st.write(item['Articulo'])
             with col2:
-                st.write(item['Cantidad'])
+                st.write(f"{item['Cantidad']} unidade/s")
             with col3:
                 st.write(item['Precio'])
            
