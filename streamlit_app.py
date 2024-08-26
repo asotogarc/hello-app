@@ -75,12 +75,6 @@ def generate_uid():
 def authenticate(username, password):
     return username == "einnova_python_development" and password == "scripts_python-ID274"
 
-username = st.text_input("Usuario")
-password = st.text_input("Contraseña", type="password")
-if not authenticate(username, password):
-    st.error("Usuario o contraseña incorrectos")
-    st.stop()
-
 def get_month_and_year():
     now = datetime.now()
     month = now.strftime("%B").lower()
@@ -93,6 +87,23 @@ if "first_time" not in st.session_state:
 if "items" not in st.session_state:
     st.session_state.items_invoice = []
 
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+
+if not st.session_state.authenticated:
+    st.title("Login")
+    username = st.text_input("Usuario")
+    password = st.text_input("Contraseña", type="password")
+    if st.button("Acceder"):
+        if authenticate(username, password):
+            st.session_state.authenticated = True
+            st.success("Login exitoso!")
+            st.experimental_rerun()
+        else:
+            st.error("Usuario o contraseña incorrectos")
+    st.stop()
+
+# El resto del código permanece igual
 selected = option_menu(
     menu_title = None,
     options = ["AUTO-FACTURACIÓN"],
@@ -135,13 +146,6 @@ if selected=="AUTO-FACTURACIÓN":
                 st.warning("El E-mail no tiene un formato válido")
             else:
                 st.success("Correo registrado")
-        
-        #cc2.header("FACTURA")
-
-        #num_invoice = cc2.text_input("#", placeholder='Numero de factura')
-        #date_invoice = cc2.date_input("Fecha *")
-        #due_date = cc2.date_input("Fecha de vencimiento")
-        #st.markdown('</div>', unsafe_allow_html=True)
     
     st.markdown('<p class="big-font">PRODUCTOS</p>', unsafe_allow_html=True)
     
@@ -185,7 +189,7 @@ if selected=="AUTO-FACTURACIÓN":
                 if st.button('Eliminar', key=f'del_{idx}'):
                     st.session_state.expense_data.pop(idx)
                     st.session_state.invoice_data.pop(idx)
-                    st.rerun()  # Cambiado de st.experimental_rerun() a st.rerun()
+                    st.rerun()
         
         total_expenses = sum([item['Total'] for item in st.session_state.expense_data])
         st.text(f"Total:{total_expenses}"+" "+euro_symbol)
