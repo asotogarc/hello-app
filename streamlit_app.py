@@ -100,7 +100,7 @@ selected = option_menu(
     orientation='horizontal'
 )
 
-if selected=="Facturación":
+if selected=="FACTURACIÓN":
     st.markdown("""
     <style>
     .big-font {
