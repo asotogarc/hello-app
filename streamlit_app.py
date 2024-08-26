@@ -196,7 +196,6 @@ if selected=="FACTURACIÓN":
     st.markdown('<p class="big-font">INFORMACIÓN ADICIONAL</p>', unsafe_allow_html=True)
     
     with st.container():
-        st.markdown('<div class="input-container">', unsafe_allow_html=True)
         cc3, cc4 = st.columns(2)
         notes = cc3.text_area("Notas")
         term = cc4.text_area("Terminos")
